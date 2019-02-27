@@ -134,7 +134,7 @@ The actual source files in the ``/R`` directory follow a naming schema:
 * `SOS-methods-accessor.R` contains accessor functions.
 * `SOS-methods-util.R` contains a lot of convenience and accessor functions, and should be used to keep the file `SOS-methods.R` lucid.
 * `SOS-methods-plotting.R` contains plotting functions.
-* ``PrintShowStructureSummary-methods.R`` contains functions to override `print`, `str`, `summary` functions and the like; these may go in this file or also into the file where the respective class is defined.
+* ``PrintShowStructureSummary-methods.R`` contains functions to override `print`, `str`, `summary` functions and the like; in the future, these should go into the file where the respective class is defined.
 
 ### `/sandbox`
 
