@@ -257,6 +257,22 @@ NULL
 #' sosDefaultReferenceFrameSensorDescription SosParsingFunctions
 #' SosEncodingFunctions SosDisabledParsers SosDataFieldConvertingFunctions
 #' SosResetParsingFunctions SosDefaults SosDefaults2 SosDefaultParsingOptions
+#' @usage SosDefaultBinding()
+#' 
+#' SosParsingFunctions(..., include = character(0), exclude = character(0))
+#' SosEncodingFunctions(..., include = character(0), exclude = character(0))
+#' SosDataFieldConvertingFunctions(..., include = character(0), exclude =
+#' character(0))
+#' 
+#' SosDisabledParsers()
+#' 
+#' SosDefaults()
+#' 
+#' SosResetParsingFunctions(sos)
+#' 
+#' SosDefaultDCPs()
+#' 
+#' SosDefaultParsingOptions()
 #' @param \dots Named references to functions to be used for the respective
 #' element during parsing, encoding oder conversion, e.g. \code{"myUnit" =
 #' myUnitParser}.
@@ -391,6 +407,7 @@ NULL
 #' show,SosDescribeSensor-method print,SosDescribeSensor-method
 #' toString,SosDescribeSensor-method
 #' @docType class
+#' @usage SosDescribeSensor(service, version, procedure, outputFormat)
 #' @param service The service attribute of the request, e.g. \samp{SOS}.
 #' @param version The version attribute of the request, e.g. \samp{1.0.0}.
 #' @param procedure The value of the procedure elements in the request, e.g.
@@ -773,6 +790,8 @@ NULL
 #' 
 #' @aliases getFeatureOfInterest getFeatureOfInterest,SOS_2.0.0,ANY-method
 #' getFeatureOfInterest,SOS_2.0.0,character-method
+#' @usage getFeatureOfInterest(sos, featureOfInterest, verbose =
+#' sos@verboseOutput, inspect = FALSE, saveOriginal = FALSE)
 #' @param sos The Sensor Observation Service from which features of interest
 #' should be retrieved
 #' @param featureOfInterest identifier(s) of features of interest
@@ -874,6 +893,14 @@ NULL
 #' print,SosGetObservationById-method toString,SosGetObservationById-method
 #' SosGetObservation_2.0.0 SosGetObservation_2.0.0-class
 #' @docType class
+#' @usage SosGetObservation(service, version, offering, observedProperty,
+#' responseFormat, srsName = as.character(NA), eventTime = list(), procedure =
+#' as.character(NA), featureOfInterest = NULL, result = NULL, resultModel =
+#' as.character(NA), responseMode = as.character(NA), BBOX = as.character(NA),
+#' valueReferenceTemporalFilter = as.character(NA))
+#' SosGetObservationById(service, version, observationId, responseFormat,
+#' srsName = as.character(NA), resultModel = as.character(NA), responseMode =
+#' as.character(NA))
 #' @param service The \verb{service} attribute of the request, e.g. \samp{SOS}.
 #' @param version The \verb{version} attribute of the request, e.g.
 #' \samp{1.0.0}.
@@ -1016,6 +1043,26 @@ NULL
 #' sosTime,GmlTimeInstant-method sosTime,GmlTimeInstantProperty-method
 #' sosTime,GmlTimePeriod-method sosTime,GmlTimePosition-method
 #' summary.GmlTimePeriod print.summary.GmlTimePeriod sosUOM,GmlMeasure-method
+#' @usage GmlDirectPosition(pos, srsName = as.character(NA), srsDimension =
+#' NA_integer_, axisLabels = as.character(NA), uomLabels = as.character(NA))
+#' GmlDirectPositionLatLon(lat, lon, srsName = as.character(NA), srsDimension =
+#' NA_integer_, axisLabels = as.character(NA), uomLabels = as.character(NA))
+#' GmlEnvelope(lowerCorner, upperCorner, srsName = as.character(NA),
+#' srsDimension = NA_integer_, axisLabels = as.character(NA), uomLabels =
+#' as.character(NA)) GmlFeatureCollection(featureMembers, id =
+#' as.character(NA)) GmlPoint(pos, id = as.character(NA), srsName =
+#' as.character(NA), srsDimension = NA_integer_, axisLabels = as.character(NA),
+#' uomLabels = as.character(NA)) GmlPointProperty(href = as.character(NA),
+#' point = NULL) GmlFeatureProperty(href = as.character(NA), feature = NULL)
+#' GmlTimeInstant(timePosition, id = as.character(NA), relatedTimes = list(NA),
+#' frame = as.character(NA)) GmlTimeInstantProperty(href = as.character(NA),
+#' time = NULL) GmlTimeInterval(interval, unit, radix = NA, factor = NA)
+#' GmlTimePeriod(begin = NULL, beginPosition = NULL, end = NULL, endPosition =
+#' NULL, duration = as.character(NA), timeInterval = NULL, id =
+#' as.character(NA), relatedTimes = list(NA), frame = as.character(NA))
+#' GmlTimePosition(time, frame = as.character(NA), calendarEraName =
+#' as.character(NA), indeterminatePosition = as.character(NA))
+#' GmlMeasure(value, uom)
 #' @param axisLabels See corresponding slot description.
 #' @param begin See corresponding slot description.
 #' @param beginPosition See corresponding slot description.
@@ -1207,6 +1254,12 @@ NULL
 #' print,OgcOverlaps-method toString,OgcBBOX-method toString,OgcContains-method
 #' toString,OgcIntersects-method toString,OgcOverlaps-method
 #' @docType class
+#' @usage OgcBBOX(propertyName = sosDefaultSpatialOpPropertyName, envelope)
+#' OgcContains(propertyName = sosDefaultSpatialOpPropertyName, geometry = NULL,
+#' envelope = NULL) OgcIntersects(propertyName =
+#' sosDefaultSpatialOpPropertyName, geometry = NULL, envelope = NULL)
+#' OgcOverlaps(propertyName = sosDefaultSpatialOpPropertyName, geometry = NULL,
+#' envelope = NULL)
 #' @param propertyName The value for the propertyName attribute.
 #' @param geometry The geometry to be used in a spatial filter.
 #' @param envelope The geometry to be used in a sptial filter.
@@ -1273,6 +1326,10 @@ NULL
 #' as.SpatialPointsDataFrame.OmObservation sosUOM,OmObservation-method
 #' print.summary.OmObservation summary.OmObservation
 #' @docType class
+#' @usage OmObservation(samplingTime, procedure, observedProperty,
+#' featureOfInterest, result, metadata = NA, resultTime = NULL, resultQuality =
+#' NA, parameter = NA) OmObservationProperty(href = as.character(NA), obs =
+#' NULL)
 #' @param samplingTime See slot description.
 #' @param procedure See slot description.
 #' @param observedProperty See slot description.
@@ -1394,6 +1451,24 @@ NULL
 #' sosResult,OwsExceptionReport-method sosTitle,OwsServiceIdentification-method
 #' sosAbstract,OwsServiceIdentification-method summary.OwsRange
 #' @docType class
+#' @usage OwsCapabilities(version, updateSequence = NA, owsVersion =
+#' sosDefaultGetCapOwsVersion, identification = NULL, provider = NULL,
+#' operations = NULL, contents = NULL, languages = NULL)
+#' OwsException(exceptionCode, exceptionText = c(), locator = as.character(NA))
+#' OwsExceptionReport(version, lang = as.character(NA), exceptions = list(NA))
+#' OwsGetCapabilities(service, acceptVersions, sections =
+#' sosDefaultGetCapSections, acceptFormats = sosDefaultGetCapAcceptFormats,
+#' updateSequence = c(as.character(NA)), owsVersion =
+#' sosDefaultGetCapOwsVersion, acceptLanguages = c(NA)) OwsOperation(name,
+#' DCPs, parameters = list(NA), constraints = list(NA), metadata = list(NA))
+#' OwsOperationsMetadata(operations, parameters = list(NA), constraints =
+#' list(NA), extendedCapabilities = xml2::xml_missing()) OwsRange(minimumValue
+#' = as.character(NA), maximumValue = as.character(NA), rangeClosure =
+#' as.character(NA), spacing = as.character(NA))
+#' OwsServiceProvider(providerName, providerSite = as.character(NA),
+#' serviceContact = xml2::xml_missing()) OwsServiceIdentification(serviceType,
+#' serviceTypeVersion, profile = c(NA), title, abstract = c(NA), keywords =
+#' c(NA), fees = as.character(NA), accessConstraints = c(NA))
 #' @param abstract Brief narrative description of this server, normally
 #' available for display to a human.
 #' @param acceptFormats Unordered character vector of zero or more response
@@ -1553,6 +1628,32 @@ NULL
 #' parseSamsShape parseSosCapabilities100 parseSosCapabilities200
 #' parseSosObservationOffering_200 parseSosObservedProperty
 #' parseSwesObservableProperty parseTextEncoding parseTime
+#' @usage parseFile(sos, file, verbose = FALSE, ...) parseCSV(obj, verbose =
+#' FALSE) parseNoParsing(obj) parseCategoryObservation(obj, sos, verbose =
+#' FALSE) parseComplexObservation(obj, sos, verbose = FALSE)
+#' parseComponent(obj, verbose = FALSE) parseCompositePhenomenon(obj, verbose =
+#' FALSE) parseCountObservation(obj, sos, verbose = FALSE) parseDataArray(obj,
+#' sos, verbose = FALSE) parseElementType(obj, sos, verbose = FALSE)
+#' parseEncoding(obj, sos, verbose = FALSE) parseFeatureCollection(obj, sos)
+#' parseField(obj, sos, verbose = FALSE) parseFOI(obj, sos, verbose = FALSE)
+#' parseGeometryObservation(obj, sos, verbose = FALSE) parseMeasure(obj)
+#' parseMeasurement(obj, sos, verbose = FALSE) parseObservation(obj, sos,
+#' verbose = FALSE) parseObservationCollection(obj, sos, verbose) parseOM(obj,
+#' sos, verbose = FALSE) parseOwsException(obj) parseOwsExceptionReport(obj,
+#' verbose = FALSE) parseOwsOperation(obj, namespaces = SosAllNamespaces())
+#' parseOwsRange(obj) parseOwsServiceIdentification(obj, namespaces =
+#' SosAllNamespaces()) parseOwsServiceProvider(obj)
+#' parsePhenomenonProperty(obj, verbose = FALSE) parsePoint(obj, sos)
+#' parsePosition(obj, sos) parseResult(obj, sos, verbose = FALSE)
+#' parseSamplingPoint(obj, sos) parseSensorML(obj, sos, verbose = FALSE)
+#' parseSosCapabilities(obj, sos) parseSosFilter_Capabilities(obj, sos)
+#' parseSosObservationOffering(obj, sos) parseTemporalObservation(obj, sos,
+#' verbose = FALSE) parseTextBlock(obj)
+#' parseTimeGeometricPrimitiveFromParent(obj, sos) parseTimeInstant(obj, sos)
+#' parseTimeInstantProperty(obj, sos) parseTimePeriod(obj, sos)
+#' parseTimePosition(obj, sos) parseTimeObject(obj, sos, timeObjectMap =
+#' list(), verbose = FALSE) parseTruthObservation(obj, sos, verbose = FALSE)
+#' parseValues(values, fields, encoding, sos, verbose = FALSE)
 #' @param obj The object to decode, normally objects of either
 #' \verb{xml_document}.
 #' @param sos An object of class \link{SOS-class}, which may be
@@ -1663,6 +1764,9 @@ NULL
 #' toString,SaSamplingSurface-method SaSamplingPoint
 #' sosCoordinates,SaSamplingPoint-method sosFeatureIds,SaSamplingPoint-method
 #' @docType class
+#' @usage SaSamplingPoint(sampledFeatures, position, relatedObservation =
+#' list(NA), relatedSamplingFeature = list(NA), surveyDetails = NA, id =
+#' NA_character_)
 #' @param sampledFeatures ~~
 #' @param position ~~
 #' @param relatedObservation ~~
@@ -1897,6 +2001,7 @@ NULL
 #' @aliases SosContents-class SosContentsOrNULL-class show,SosContents-method
 #' SosContents print,SosContents-method toString,SosContents-method
 #' @docType class
+#' @usage SosContents(observationOfferings)
 #' @param observationOfferings A list of objects of class
 #' \code{SosObservationOffering}.
 #' @section Objects from the Class: Objects can be created by calls to the
@@ -1944,6 +2049,18 @@ NULL
 #' sosCreateTimePeriod,SOS,POSIXt,POSIXt-method sosCreateTime
 #' sosCreateTime-methods sosCreateTime,SOS,character-method
 #' @docType methods
+#' @usage sosCreateBBOX(lowLat, lowLon, uppLat, uppLon, srsName, srsDimension =
+#' NA_integer_, axisLabels = NA_character_, uomLabels = NA_character_,
+#' propertyName = sosDefaultSpatialOpPropertyName) sosCreateBBoxMatrix(lowLat,
+#' lowLon, uppLat, uppLon) sosCreateFeatureOfInterest(objectIDs = list(NA),
+#' spatialOps = NULL, bbox = NULL, srsName = NA_character_)
+#' sosCreateEventTime(time, operator) sosCreateEventTimeList(time, operator)
+#' sosCreateTimeInstant(sos, time, frame = as.character(NA), calendarEraName =
+#' as.character(NA), indeterminatePosition = as.character(NA))
+#' sosCreateTimePeriod(sos, begin, end, frame = as.character(NA),
+#' calendarEraName = as.character(NA), indeterminatePosition =
+#' as.character(NA), duration = as.character(NA), timeInterval = NULL)
+#' sosCreateTime(sos, time, operator = sosDefaultTemporalOperator)
 #' @param lowLat Minimum latitude for bounding box and bounding box matrix.
 #' @param lowLon Minimum longitude for bounding box and bounding box matrix.
 #' @param uppLat Maximum latitude for bounding box and bounding box matrix.
@@ -2056,6 +2173,7 @@ NULL
 #' print,SosFeatureOfInterest-method toString,SosFeatureOfInterest-method
 #' SosFeatureOfInterest SosFeatureOfInterestOrNULL-class
 #' @docType class
+#' @usage SosFeatureOfInterest(objectIDs = list(NA), spatialOps = NULL)
 #' @param objectIDs A list of character identifiers of features in a SOS.
 #' @param spatialOps An object of class \code{OgcSpatialOps} for spatial
 #' filtering.
@@ -2098,6 +2216,8 @@ NULL
 #' print,SosFilter_Capabilities-method toString,SosFilter_Capabilities-method
 #' SosFilter_Capabilities SosFilter_CapabilitiesOrNULL-class
 #' @docType class
+#' @usage SosFilter_Capabilities(spatial = list(NA_character_), temporal =
+#' list(NA_character_), scalar = list(NA_character_), id = list(NA_character_))
 #' @param spatial A character list of names of available spatial filters.
 #' @param temporal A character list of names of available temporal filters.
 #' @param scalar A character list of names of available scalar filters.
@@ -2214,6 +2334,10 @@ NULL
 #' sosResultModels,SosObservationOffering_2.0.0-method
 #' sosId,SosObservationOffering_2.0.0-method
 #' @docType class
+#' @usage SosObservationOffering(id, name = as.character(NA), time, procedure,
+#' observedProperty, featureOfInterest, responseFormat, intendedApplication =
+#' as.character(NA), resultModel = as.character(NA), responseMode =
+#' as.character(NA), boundedBy = list())
 #' @param boundedBy See the corresponding slot description.
 #' @param featureOfInterest See the corresponding slot description.
 #' @param id See the corresponding slot description.
@@ -2305,6 +2429,12 @@ NULL
 #' SosSupportedResponseModes SosSupportedResultModels
 #' SosSupportedSpatialOperators SosSupportedTemporalOperators
 #' SosSupportedServiceVersions SosSupportedOperations
+#' @usage SosSupportedOperations(version = sos100_version)
+#' SosSupportedComparisonOperators() SosSupportedBindings()
+#' SosSupportedGeometryOperands() SosSupportedResponseFormats()
+#' SosSupportedResponseModes() SosSupportedResultModels()
+#' SosSupportedSpatialOperators() SosSupportedTemporalOperators()
+#' SosSupportedServiceVersions()
 #' @param version The SOS specification version.
 #' @return A list of supported values for the respective parameter.
 #' @author Daniel Nuest \email{daniel.nuest@@uni-muenster.de}
@@ -2359,6 +2489,11 @@ NULL
 #' sosObservedProperties,SweCompositePhenomenon-method
 #' sosObservedProperties,SwePhenomenonProperty-method
 #' @docType class
+#' @usage SweCompositePhenomenon(id, name, description = as.character(NA),
+#' dimension, components, base = NULL) SwePhenomenon(id, name, description =
+#' as.character(NA)) SwePhenomenonProperty(href = as.character(NA), phenomenon
+#' = NULL) SweTextBlock(tokenSeparator, blockSeparator, decimalSeparator, id =
+#' as.character(NA))
 #' @param id The character string to be used for the id attribute (mandatory).
 #' @param name The character string to be used for the name element
 #' (mandatory).
@@ -2440,6 +2575,10 @@ NULL
 #' TM_Equals-class TM_Operators-class TM_Operators TM_After TM_Before TM_During
 #' TM_Equals
 #' @docType class
+#' @usage TM_After(propertyName = sosDefaultTempOpPropertyName, time)
+#' TM_Before(propertyName = sosDefaultTempOpPropertyName, time)
+#' TM_During(propertyName = sosDefaultTempOpPropertyName, time)
+#' TM_Equals(propertyName = sosDefaultTempOpPropertyName, time)
 #' @param propertyName The name of the property that is used to wrap the time.
 #' @param time A time instant or period to be used as the temporal operand.
 #' @return An object of the respective class, so \code{TM_After},

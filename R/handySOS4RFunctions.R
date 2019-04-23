@@ -146,6 +146,8 @@ setMethod(f = "phenomena",
 
 
 
+
+
 #' This function queries a SOS v2.0 for its sites and returns them as
 #' data.frame
 #' 
@@ -154,6 +156,8 @@ setMethod(f = "phenomena",
 #' vector or data.frame.
 #' 
 #' 
+#' @usage siteList(sos, empty = FALSE, timeInterval = NA_character_,
+#' includePhenomena = FALSE, includeTemporalBBox = FALSE, phenomena = list())
 #' @param sos A SOS object from a call to \code{\link[sos4R]{SOS}} containing
 #' the URL of a SOS.
 #' @param empty Whether also empty sites shall be included in the response.
@@ -206,11 +210,14 @@ siteList <- function(sos,
                      includeTemporalBBox=FALSE, # meta data
 
 
+
+
 #' Function retrieve phenomena of a SOS v2.0
 #' 
 #' This function queries a SOS v2.0 for all its phenomena
 #' 
 #' 
+#' @usage phenomena(sos, includeTemporalBBox = FALSE, includeSiteId = FALSE)
 #' @param sos An SOS object from a call to \code{\link[sos4R]{SOS}} containing
 #' the URL of a SOS.
 #' @param includeTemporalBBox Whether the observation containing timespan of
@@ -291,6 +298,8 @@ siteList <- function(sos,
 
 
 
+
+
 #' This function queries a SOS v2.0 for its sites and returns them as
 #' SpatialPointsDataFrame
 #' 
@@ -299,6 +308,8 @@ siteList <- function(sos,
 #' SpatialPointsDataFrame.
 #' 
 #' 
+#' @usage sites(sos, empty = FALSE, timeInterval = NA_character_,
+#' includePhenomena = FALSE, includeTemporalBBox = FALSE, phenomena = list())
 #' @param sos A SOS object from a call to \code{\link[sos4R]{SOS}} containing
 #' the URL of a SOS.
 #' @param empty Whether also empty sites shall be included in the response.
@@ -382,12 +393,16 @@ sites <- function(sos,
 
 
 
+
+
 #' This function queries a SOS v2.0 for time series data
 #' 
 #' For given sites and phenomena, a SOS is queried and the data returned as
 #' data.frame.
 #' 
 #' 
+#' @usage getData(sos, phenomena, sites, spatialBBox = NA, timeInterval =
+#' NA_character_)
 #' @param sos An SOS object from a call to \code{\link[sos4R]{SOS}} containing
 #' the URL of a SOS v2.0.
 #' @param phenomena A list, vector or one-column data.frame with characters
@@ -467,6 +482,8 @@ getData <- function(sos,
 
 
 
+
+
 #' This function queries a SOS v2.0 for time series data and returns it as
 #' ST-object
 #' 
@@ -474,6 +491,8 @@ getData <- function(sos,
 #' ST-object.
 #' 
 #' 
+#' @usage getDataAsST(sos, phenomena, sites, spatialBBox = NA, timeInterval =
+#' NA_character_)
 #' @param sos An \code{\link[sos4R]{SOS}} object containing the URL of a SOS
 #' v2.0.
 #' @param phenomena A list, vector or one-column data.frame with characters

@@ -45,6 +45,8 @@ sosConvertDouble <- function(x, sos) {
 
 
 
+
+
 #' SOS Conversion functions for Observation Results
 #' 
 #' These functions are called by the parsers of om:Observation and
@@ -62,6 +64,8 @@ sosConvertDouble <- function(x, sos) {
 #' your own converters (\code{\link{SosDataFieldConvertingFunctions}}).
 #' 
 #' @aliases sosConvertString sosConvertDouble sosConvertTime sosConvertLogical
+#' @usage sosConvertString(x, sos) sosConvertDouble(x, sos) sosConvertTime(x,
+#' sos) sosConvertLogical(x, sos)
 #' @param x The object to be converted.
 #' @param sos An object of class \code{SOS}, whose settings, like formating
 #' information, can be utilitzed.

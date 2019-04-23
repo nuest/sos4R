@@ -32,6 +32,8 @@
 #
 
 
+
+
 #' Class, and Construction and Accessor Functions for "SOS"
 #' 
 #' Base class of a connection to a Sensor Observation Service.
@@ -117,6 +119,18 @@
 #' print,SOS_2.0.0-method show,SOS_2.0.0-method sosBinding,SOS_2.0.0-method
 #' sosUrl,SOS_2.0.0-method toString,SOS_2.0.0-method
 #' @docType class
+#' @usage SOS(url, binding = SosDefaultBinding(), version = sos100_version,
+#' parsers = SosParsingFunctions(), encoders = SosEncodingFunctions(),
+#' dataFieldConverters = SosDataFieldConvertingFunctions(), timeFormat =
+#' sosDefaultTimeFormat, verboseOutput = FALSE, switchCoordinates = FALSE,
+#' useDCPs = TRUE, dcpFilter = SosDefaultDCPs(), additionalKVPs = list(), ...)
+#' 
+#' SOS_Test(name = "test", binding = SosDefaultBinding(), version =
+#' sos100_version, parsers = SosParsingFunctions(), encoders =
+#' SosEncodingFunctions(), dataFieldConverters =
+#' SosDataFieldConvertingFunctions(), timeFormat = sosDefaultTimeFormat,
+#' verboseOutput = FALSE, switchCoordinates = FALSE, useDCPs = TRUE, dcpFilter
+#' = SosDefaultDCPs(), additionalKVPs = list(), ...)
 #' @param url See the corresponding slot description.
 #' @param binding See the corresponding slot description.
 #' @param version See the corresponding slot description.
@@ -282,6 +296,8 @@ SosFilter_Capabilities <- function(spatial = list(NA_character_),
 
 
 
+
+
 #' Class and Construction Function for "SosCapabilities"
 #' 
 #' The service metadata document of a Sensor Observation Service.
@@ -298,6 +314,9 @@ SosFilter_Capabilities <- function(spatial = list(NA_character_),
 #' @aliases SosCapabilities_1.0.0-class SosCapabilities SosCapabilities-class
 #' SosCapabilities_2.0.0-class
 #' @docType class
+#' @usage SosCapabilities(version, updateSequence = NA, owsVersion = "1.1.0",
+#' identification = NULL, provider = NULL, operations = NULL,
+#' filterCapabilities = NULL, contents = NULL)
 #' @param version The version of the service.
 #' @param updateSequence Service metadata document version, value is
 #' "increased" whenever any change is made in complete service metadata
@@ -390,6 +409,8 @@ SosContents <- function(observationOfferings) {
 
 
 
+
+
 #' Classes and Construction Functions for sos:eventTime elements.
 #' 
 #' Temporal query parameters for GetObservation requests.
@@ -415,6 +436,7 @@ SosContents <- function(observationOfferings) {
 #' @aliases SosEventTime-class show,SosEventTime-method
 #' print,SosEventTime-method toString,SosEventTime-method SosEventTime
 #' @docType class
+#' @usage SosEventTime(temporalOps)
 #' @param temporalOps An object of class \link{OgcBinaryTemporalOp-class} to be
 #' wrapped by the sos:eventTime element.
 #' @section Objects from the Classes: Objects can be created by calls to the

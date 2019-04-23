@@ -32,6 +32,8 @@
 #
 
 
+
+
 #' Class "OmObservationCollection"
 #' 
 #' Collection of arbitrary observations.
@@ -99,6 +101,8 @@ OmObservationProperty <- function(href = as.character(NA), obs = NULL) {
 
 
 
+
+
 #' Class and Construction Function for om:Measurement Elements
 #' 
 #' Classes and construction functions for objects from the OGC Observations and
@@ -115,6 +119,9 @@ OmObservationProperty <- function(href = as.character(NA), obs = NULL) {
 #' names.OmMeasurement as.data.frame.OmMeasurement
 #' as.SpatialPointsDataFrame.OmMeasurement sosUOM,OmMeasurement-method
 #' @docType class
+#' @usage OmMeasurement(samplingTime, procedure, observedProperty,
+#' featureOfInterest, result, metadata = NA, resultTime = NULL, resultQuality =
+#' NA, parameter = NA)
 #' @param samplingTime See slot description.
 #' @param procedure See slot description.
 #' @param observedProperty See slot description.
