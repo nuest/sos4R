@@ -30,6 +30,54 @@
 #
 # construction methods ----
 #
+
+
+#' Class "OmObservationCollection"
+#' 
+#' Collection of arbitrary observations.
+#' 
+#' 
+#' @name OmObservationCollection
+#' @aliases OmObservationCollection OmObservationCollection-class
+#' length,OmObservationCollection-method show,OmObservationCollection-method
+#' sosResult,OmObservationCollection-method
+#' print,OmObservationCollection-method toString,OmObservationCollection-method
+#' [,OmObservationCollection-method
+#' [[,OmObservationCollection,ANY,missing-method
+#' as.list.OmObservationCollection length.OmObservationCollection
+#' names.OmObservationCollection sosBoundedBy,OmObservationCollection-method
+#' sosCoordinates,OmObservationCollection-method
+#' sosProcedures,OmObservationCollection-method
+#' sosFeatureIds,OmObservationCollection-method
+#' sosObservedProperties,OmObservationCollection
+#' sosObservedProperties,OmObservationCollection-method
+#' sosFeaturesOfInterest,OmObservationCollection
+#' sosFeaturesOfInterest,OmObservationCollection-method
+#' as.SpatialPointsDataFrame.OmObservationCollection
+#' sosGetCRS,OmObservationCollection-method
+#' sosUOM,OmObservationCollection-method print.summary.OmObservationCollection
+#' summary.OmObservationCollection sosObservableProperties,
+#' OmObservation-method sosObservableProperties, OmObservationCollection-method
+#' sosObservableProperties, SOS-method sosObservableProperties,
+#' SosObservationOffering_2.0.0-method sosObservableProperties,
+#' SweCompositePhenomenon-method sosObservableProperties,
+#' SwePhenomenonProperty-method sosObservableProperties, list-method
+#' @docType class
+#' @section Objects from the Class: Objects can be created by calls to the
+#' construction function of the form \code{OmObservationCollection(...)}.
+#' @author Daniel Nuest \email{daniel.nuest@@uni-muenster.de}
+#' @seealso \code{\linkS4class{OmObservation}} or
+#' \code{\linkS4class{OmMeasurement}}.
+#' @references Cox, S. (Ed.), Observations and Measurements - Part 1 -
+#' Observation schema, Open Geospatial Consortium Inc., OGC 07-022r1, Version:
+#' 1.0
+#' @keywords classes
+#' @examples
+#' 
+#' showClass("OmObservationCollection")
+#' 
+#' 
+#' @export OmObservationCollection
 OmObservationCollection <- function(members, boundedBy) {
   new("OmObservationCollection", members = members, boundedBy = boundedBy)
 }
@@ -49,6 +97,48 @@ OmObservationProperty <- function(href = as.character(NA), obs = NULL) {
   new("OmObservationProperty", href = href, obs = obs)
 }
 
+
+
+#' Class and Construction Function for om:Measurement Elements
+#' 
+#' Classes and construction functions for objects from the OGC Observations and
+#' Measurements specification.
+#' 
+#' A Measurement contains a \code{\linkS4class{GmlMeasure}}.
+#' 
+#' @name OmMeasurement
+#' @aliases OmMeasurement OmMeasurement-class show,OmMeasurement-method
+#' print,OmMeasurement-method toString,OmMeasurement-method
+#' sosResult,OmMeasurement-method sosProcedures,OmMeasurement-method
+#' sosFeatureIds,OmMeasurement-method
+#' sosFeaturesOfInterest,OmMeasurement-method sosGetCRS,OmMeasurement-method
+#' names.OmMeasurement as.data.frame.OmMeasurement
+#' as.SpatialPointsDataFrame.OmMeasurement sosUOM,OmMeasurement-method
+#' @docType class
+#' @param samplingTime See slot description.
+#' @param procedure See slot description.
+#' @param observedProperty See slot description.
+#' @param featureOfInterest See slot description.
+#' @param result See slot description.
+#' @param metadata See slot description.
+#' @param resultTime See slot description.
+#' @param resultQuality See slot description.
+#' @param parameter See slot description.
+#' @return The construction functions return an object of the respective class.
+#' @section Objects from the Class: Objects can be created by calls to the
+#' construction function of the form \code{OmMeasurement(...)}.
+#' @author Daniel Nuest \email{daniel.nuest@@uni-muenster.de}
+#' @seealso See also \code{\link{OmObservation-class}},
+#' \code{\linkS4class{GmlMeasure}}.
+#' @references Cox, S. (Ed.), Observations and Measurements - Part 1 -
+#' Observation schema, Open Geospatial Consortium Inc., OGC 07-022r1, Version:
+#' 1.0
+#' @keywords classes
+#' @examples
+#' 
+#' showClass("OmMeasurement")
+#' 
+#' @export OmMeasurement
 OmMeasurement <- function(samplingTime, procedure, observedProperty,
                           featureOfInterest, result, metadata = NA, resultTime = NULL,
                           resultQuality = NA,	parameter = NA) {

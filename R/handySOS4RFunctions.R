@@ -144,11 +144,108 @@ setMethod(f = "phenomena",
   return(los)
 }
 
+
+
+#' This function queries a SOS v2.0 for its sites and returns them as
+#' data.frame
+#' 
+#' Information about the registered sites in a SOS can be queried using this
+#' function. This function allows for different levels of detail and returns a
+#' vector or data.frame.
+#' 
+#' 
+#' @param sos A SOS object from a call to \code{\link[sos4R]{SOS}} containing
+#' the URL of a SOS.
+#' @param empty Whether also empty sites shall be included in the response.
+#' @param timeInterval A character defining an ISO-String (ISO 8601), see also
+#' \link[xts]{xts}. Only sites with data within this interval will be
+#' retrieved.
+#' @param includePhenomena Whether the phenomena shall be listed per location
+#' that can be observed.
+#' @param includeTemporalBBox Whether the observation containing timespan of
+#' each phenomenon shall also be reported.
+#' @param phenomena A list, vector or one-column data.frame with characters
+#' identifying the relevant phenomena; only sites where these phenomena can be
+#' observed are retrieved.
+#' @return If only the argument \code{sos} is provided and the flag
+#' \code{empty} is set to \code{TRUE} or \code{FALSE}, this function returns a
+#' character vector with the site ids.
+#' 
+#' If \code{listPhenomena = TRUE}, the data.frame contains the column
+#' containing the site ids and a character column phenomenon where sites with
+#' several phenomena are repeated for each of their phenomenon.
+#' 
+#' If \code{includeTemporalBBox = TRUE}, the data.frame also contains two
+#' character columns \code{beginTime} and \code{endTime} indicating per site id
+#' and phenomenon its earliest and latest observation time point.
+#' @author Benedikt Graeler, Eike Hinderk Juerrens
+#' @examples
+#' 
+#' ## The function is currently defined as
+#' function (sos, empty = FALSE, timeInterval = NA_character_, listPhenomena = FALSE,
+#'     includeTemporalBBox = FALSE, phenomena = list())
+#' {
+#'     stopifnot(inherits(sos, "SOS_2.0.0"))
+#'     stopifnot(is.logical(empty))
+#'     stopifnot(is.character(timeInterval))
+#'     stopifnot(is.logical(listPhenomena))
+#'     stopifnot(is.logical(includeTemporalBBox))
+#'     phenomena <- .validateListOrDfColOfStrings(phenomena, "phenomena")
+#'     if (includeTemporalBBox && !listPhenomena) {
+#'         listPhenomena <- TRUE
+#'         warning("'listPhenomena' has been set to 'TRUE' as this is required for
+#'                  'includeTemporalBBox'.")
+#'     }
+#'   }
+#' 
+#' @export siteList
 siteList <- function(sos,
                      empty=FALSE, # filter
                      timeInterval=NA_character_,  # filter
                      includePhenomena=FALSE, # meta data
                      includeTemporalBBox=FALSE, # meta data
+
+
+#' Function retrieve phenomena of a SOS v2.0
+#' 
+#' This function queries a SOS v2.0 for all its phenomena
+#' 
+#' 
+#' @param sos An SOS object from a call to \code{\link[sos4R]{SOS}} containing
+#' the URL of a SOS.
+#' @param includeTemporalBBox Whether the observation containing timespan of
+#' each phenomenon shall also be reported.
+#' @param includeSiteId Whether the sites shall be reported at which each
+#' phenomenon has been observed.
+#' @return If only the argument \code{sos} is provided, this function returns a
+#' character vector with the phenomenon ids.
+#' 
+#' If \code{timeInfo = TRUE}, the result is a \code{data.frame} where the
+#' character vector of phenomena is combined with a character columns
+#' \code{beginTime} and \code{endTime}. Note that these two columns indicate
+#' the very beginning and end of any time series recorded for each phenomenon
+#' \bold{across all sites} and does not imply any continuity.
+#' 
+#' If \code{sites = TRUE}, the result is a \code{data.frame} where the
+#' character vector of phenomena is combined with a character column
+#' \code{siteID}. Phenomena that have been observed at several sites will be
+#' replicated for each site. If also \code{timeInfo = TRUE}, the
+#' \code{data.frame} will have character columns \code{beginTime} and
+#' \code{endTime} per phenomenon and site. Note that these two columns indicate
+#' the very beginning and end of any time series recorded for each phenomenon
+#' \bold{at each site}, but does still not imply to be continuous series.
+#' @author Benedikt Graeler, Eike Hinderk Juerrens
+#' @examples
+#' 
+#' ## The function is currently defined as
+#' function (sos, includeTemporalBBox = FALSE, listSites = FALSE)
+#' {
+#'     stopifnot(inherits(sos, "SOS_2.0.0"))
+#'     stopifnot(is.logical(timeInfo))
+#'     stopifnot(is.logical(sites))
+#'   }
+#' 
+#' @export phenomena
                      phenomena=list()) { # filter
   stopifnot(inherits(sos, "SOS_2.0.0"))
   stopifnot(is.logical(empty))
@@ -192,6 +289,59 @@ siteList <- function(sos,
 # sites(sos, phenomena=[List of phenomena])
 # → SpatialPointsDataFrame[phen_1=df[beginTime, endTime], …, phen_n=df[beginTime, endTime]] + coords
 
+
+
+#' This function queries a SOS v2.0 for its sites and returns them as
+#' SpatialPointsDataFrame
+#' 
+#' Information about the registered sites in a SOS can be queried using this
+#' function. This function allows for different levels of detail and returns a
+#' SpatialPointsDataFrame.
+#' 
+#' 
+#' @param sos A SOS object from a call to \code{\link[sos4R]{SOS}} containing
+#' the URL of a SOS.
+#' @param empty Whether also empty sites shall be included in the response.
+#' @param timeInterval A character defining an ISO-String (ISO 8601), see also
+#' \link[xts]{xts}. Only sites with data within this interval will be
+#' retrieved.
+#' @param includePhenomena Whether the phenomena shall be listed per location
+#' that can be observed.
+#' @param includeTemporalBBox Whether the observation containing timespan of
+#' each phenomenon shall also be reported.
+#' @param phenomena A list, vector or one-column data.frame with characters
+#' identifying the relevant phenomena; only sites where these phenomena can be
+#' observed are retrieved.
+#' @return A \code{\link[sp]{SpatialPointsDataFrame}} containing all sites that
+#' match the filter conditions with corresponding metadata defined via the
+#' arguments. If \code{empty = TRUE}, the data slot contains a logical column
+#' 'empty' indicating whether any data has been observed for this site. If
+#' \code{listPhenomena = TRUE}, the data.frame contains a logical column per
+#' phenomenon indicating whether this specific phenomenon has been observed at
+#' that site. If \code{includeTemporalBBox = TRUE}, the data.frame contains a
+#' two column data.frame with \code{beginTime} and \code{endTime} per
+#' phenomenon.
+#' @author Benedikt Graeler, Eike Hinderk Juerrens
+#' @examples
+#' 
+#' ## The function is currently defined as
+#' function (sos, empty = FALSE, timeInterval = NA_character_, listPhenomena = FALSE,
+#'     includeTemporalBBox = FALSE, phenomena = list())
+#' {
+#'     stopifnot(inherits(sos, "SOS_2.0.0"))
+#'     stopifnot(is.logical(empty))
+#'     stopifnot(is.character(timeInterval))
+#'     stopifnot(is.logical(listPhenomena))
+#'     stopifnot(is.logical(includeTemporalBBox))
+#'     phenomena <- .validateListOrDfColOfStrings(phenomena, "phenomena")
+#'     if (includeTemporalBBox && !listPhenomena) {
+#'         listPhenomena <- TRUE
+#'         warning("'listPhenomena' has been set to 'TRUE' as this is required for
+#'         'includeTemporalBBox'.")
+#'     }
+#'   }
+#' 
+#' @export sites
 sites <- function(sos,
                   empty=FALSE,
                   timeInterval=NA_character_,
@@ -230,6 +380,50 @@ sites <- function(sos,
 # →
 # data.frame[siteID, timestamp, phen_1, phen_2, …]
 
+
+
+#' This function queries a SOS v2.0 for time series data
+#' 
+#' For given sites and phenomena, a SOS is queried and the data returned as
+#' data.frame.
+#' 
+#' 
+#' @param sos An SOS object from a call to \code{\link[sos4R]{SOS}} containing
+#' the URL of a SOS v2.0.
+#' @param phenomena A list, vector or one-column data.frame with characters
+#' identifying the relevant phenomena.
+#' @param sites A list, vector or one-column data.frame with characters
+#' identifying the relevant sites.
+#' @param spatialBBox A 2-by-2 matrix with \code{x} and \code{y} in the rows
+#' and \code{min} and \code{max} in the columns. See \code{\link[sp]{Spatial}}
+#' for details. If \code{sites} is set, this argument is ignored.
+#' @param timeInterval A character defining an ISO-String (ISO 8601), see also
+#' \link[xts]{xts}.
+#' @return A data.frame containing the data in long form where each row
+#' contains a \code{siteID}, the time stamp of the observation and the observed
+#' measurements for each phenomenon in a separate column. The measurements are
+#' provided with units using \code{\link[units]{units}}.
+#' @author Benedikt Graeler, Eike Hinderk Juerrens
+#' @examples
+#' 
+#' ## The function is currently defined as
+#' function (sos, phenomena, sites, spatialBBox = NA, timeInterval = NA_character_)
+#' {
+#'     stopifnot(inherits(sos, "SOS_2.0.0"))
+#'     stopifnot(is.character(timeInterval))
+#'     if (missing(sites) && is.na(spatialBBox))
+#'         stop("Either 'sites' or 'spatialBBox' must be provided.")
+#'     phenomena <- .validateListOrDfColOfStrings(phenomena, "phenomena")
+#'     if (!missing(sites)) {
+#'         sites <- .validateListOrDfColOfStrings(sites, "sites")
+#'         if (!is.na(spatialBBox)) {
+#'             spatialBBox <- NA
+#'             warning("'spatialBBox' has been ignored and 'sites' is used instead.")
+#'         }
+#'     }
+#'   }
+#' 
+#' @export getData
 getData <- function(sos,
                     phenomena, # no default to force the user to actively pick phenomena
                     sites, # no default to force the user to actively pick sites
@@ -271,6 +465,55 @@ getData <- function(sos,
 # →
 # STSDF[phen_1, phen_2, …] + coords + time + index
 
+
+
+#' This function queries a SOS v2.0 for time series data and returns it as
+#' ST-object
+#' 
+#' For given sites and phenomena, a SOS is queried and the data returned as
+#' ST-object.
+#' 
+#' 
+#' @param sos An \code{\link[sos4R]{SOS}} object containing the URL of a SOS
+#' v2.0.
+#' @param phenomena A list, vector or one-column data.frame with characters
+#' identifying the relevant phenomena.
+#' @param sites A list, vector or one-column data.frame with characters
+#' identifying the relevant sites. If this argument is set, \code{spatialBBox}
+#' will be ignored.
+#' @param spatialBBox A 2-by-2 matrix with \code{x} and \code{y} in the rows
+#' and \code{min} and \code{max} in the columns. See \code{\link[sp]{Spatial}}
+#' for details. A vector of length 4 with \code{c(minX, minY, maxX, maxY)} will
+#' be converted to the desired 2-by-2 matrix.  If \code{sites} is set, this
+#' argument is ignored.
+#' @param timeInterval A character defining an ISO-String (ISO 8601), see also
+#' \link[xts]{xts}.
+#' @return An ST-object containing the data where the spatial and temporal
+#' information are contained in the \code{sp} and \code{time} slots
+#' respectively. The measurements are contained for each phenomenon in a
+#' separate column and are provided with units using
+#' \code{\link[units]{units}}.
+#' @author Benedikt Graeler, Eike Hinderk Juerrens
+#' @examples
+#' 
+#' ## The function is currently defined as
+#' function (sos, phenomena, sites, spatialBBox = NA, timeInterval = NA_character_)
+#' {
+#'     stopifnot(inherits(sos, "SOS_2.0.0"))
+#'     stopifnot(is.character(timeInterval))
+#'     if (missing(sites) && is.na(spatialBBox))
+#'         stop("Either 'sites' or 'spatialBBox' must be provided.")
+#'     phenomena <- .validateListOrDfColOfStrings(phenomena, "phenomena")
+#'     if (!missing(sites)) {
+#'         sites <- .validateListOrDfColOfStrings(sites, "sites")
+#'         if (!is.na(spatialBBox)) {
+#'             spatialBBox <- NA
+#'             warning("'spatialBBox' has been ignored and 'sites' is used instead.")
+#'         }
+#'     }
+#'   }
+#' 
+#' @export getDataAsST
 getDataAsST <- function(sos,
                         phenomena, # no default to force the user to actively pick phenomena
                         sites, # no default to force the user to actively pick sites

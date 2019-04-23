@@ -30,6 +30,170 @@
 #
 # construction functions ----
 #
+
+
+#' Class, and Construction and Accessor Functions for "SOS"
+#' 
+#' Base class of a connection to a Sensor Observation Service.
+#' 
+#' From the introduction of the specification document: \dQuote{The goal of SOS
+#' is to provide access to observations from sensors and sensor systems in a
+#' standard way that is consistent for all sensor systems including remote,
+#' in-situ, fixed and mobile sensors.}
+#' 
+#' @name SOS
+#' @aliases SOS SOS-class show,SOS-method print,SOS-method toString,SOS-method
+#' SOS_1.0.0 SOS_1.0.0-class show,SOS_1.0.0-method print,SOS_1.0.0-method
+#' toString,SOS_1.0.0-method SOS_2.0.0 SOS_2.0.0-class show,SOS_2.0.0-method
+#' print,SOS_2.0.0-method toString,SOS_2.0.0-method SOS_versioned
+#' SOS_versioned-class sosCapabilitiesDocumentOriginal
+#' sosCapabilitiesDocumentOriginal,SOS-method sosCaps sosCaps-methods
+#' sosCaps,SOS-method sosContents sosContents-methods sosContents,SOS-method
+#' sosDataFieldConverters sosDataFieldConverters-methods
+#' sosDataFieldConverters,SOS-method sosDataFieldConverters,SOS_Test-method
+#' sosTime sosTime-methods sosTime,SOS-method sosTime,list-method
+#' sosFilter_Capabilities sosFilter_Capabilities-methods
+#' sosFilter_Capabilities,SOS-method sosFeaturesOfInterest
+#' sosFeaturesOfInterest-methods sosFeaturesOfInterest,SOS-method
+#' sosFeaturesOfInterest,SOS,character-method
+#' sosFeaturesOfInterest,SosObservationOffering-method sosBinding
+#' sosBinding-methods sosBinding,SOS-method sosBinding,SOS_1.0.0-method
+#' sosBinding,SOS_2.0.0-method sosObservedProperties
+#' sosObservedProperties-methods sosObservedProperties,SOS-method
+#' sosObservedProperties,SosObservationOffering-method sosOfferingIds
+#' sosOfferingIds-methods sosOfferingIds,SOS-method sosOfferings
+#' sosOfferings-methods sosOfferings,SOS-method
+#' sosOfferings,SOS,character-method sosOperation sosOperation-methods
+#' sosOperation,SOS,character-method sosOperationsMetadata
+#' sosOperationsMetadata-methods sosOperationsMetadata,SOS-method sosParsers
+#' sosParsers-methods sosParsers,SOS-method sosParsers,SOS_Test-method
+#' sosProcedures sosProcedures-methods sosProcedures,SOS-method
+#' sosProcedures,list-method sosProcedures,SosObservationOffering-method
+#' sosResponseFormats sosResponseFormats-methods sosResponseFormats,SOS-method
+#' sosResponseFormats,OwsOperation-method
+#' sosResponseFormats,SosObservationOffering-method sosOutputFormats
+#' sosOutputFormats-methods sosOutputFormats,SOS-method
+#' sosOutputFormats,OwsOperation-method sosResponseMode sosResponseMode-methods
+#' sosResponseMode,SOS-method sosResponseMode,OwsOperation-method
+#' sosResponseMode,SosObservationOffering-method sosResultModels
+#' sosResultModels-methods sosResultModels,SOS-method
+#' sosResultModels,OwsOperation-method sosResult,character-method
+#' sosServiceIdentification sosServiceIdentification-methods
+#' sosServiceIdentification,SOS-method sosServiceProvider
+#' sosServiceProvider-methods sosServiceProvider,SOS-method sosSrsName
+#' sosSrsName-methods sosSrsName,SOS-method sosTimeFormat sosTimeFormat-methods
+#' sosTimeFormat,SOS-method sosUrl sosUrl-methods sosUrl,SOS-method
+#' sosUrl,SOS_1.0.0-method sosUrl,SOS_2.0.0-method sosVersion
+#' sosVersion-methods sosVersion,SOS-method sosExceptionCodeMeaning
+#' sosExceptionCodeMeaning,character-method sosBoundedBy sosBoundedBy-method
+#' sosBoundedBy,list-method sosCoordinates sosCoordinates-method
+#' sosCoordinates,list-method sosCoordinates,SosObservationOffering-method
+#' sosId sosId-method sosId,list-method sosSrsName sosSrsName-method
+#' sosFeatureIds sosFeatureIds-method sosFeatureIds,list-method
+#' sosObservedProperties,list-method sosFeaturesOfInterest,list-method
+#' sosGetCRS sosGetCRS-method sosGetCRS,SOS-method sosGetCRS,list-method
+#' sosGetCRS,character-method sosGetCRS,SosObservationOffering-method sosName
+#' sosName-method sosName,list-method sosName,OwsServiceProvider-method
+#' sosName,OwsGetCapabilities-method sosName,OwsOperation-method
+#' sosName,SosDescribeSensor-method sosName,SosGetObservation-method
+#' sosName,SosGetObservationById-method sosTitle sosTitle-method
+#' sosTitle,SOS-method sosAbstract sosAbstract-method sosAbstract,SOS-method
+#' sosEncoders sosEncoders,SOS-method sosOperations sosOperations,SOS-method
+#' sosOperations,OwsCapabilities-method
+#' sosOperations,SosCapabilities_1.0.0-method
+#' sosOperations,SosCapabilities_2.0.0-method sosGetDCP
+#' sosGetDCP,SOS,character-method sosSwitchCoordinates
+#' sosSwitchCoordinates-method sosSwitchCoordinates,SOS-method plot.SOS
+#' plot,SOS,missing-method plot.SosObservationOffering
+#' plot,SosObservationOffering,missing-method
+#' as.SosObservationOffering.SpatialPolygons print.summary.SOS
+#' print.summary.SosObservationOffering summary.SosObservationOffering
+#' summary.SOS summary.SOS_versioned sosResult,data.frame-method sosUOM
+#' sosUOM,list-method sosUOM,data.frame-method sosCapabilitiesUrl
+#' sosCapabilitiesUrl-method sosCapabilitiesUrl,SOS-method SOS_Test
+#' SOS_Test-class sosName,SosGetFeatureOfInterest_2.0.0-method
+#' sosProcedures,SosObservationOffering_2.0.0-method
+#' sosResponseFormats,SosObservationOffering_2.0.0-method SOS_2.0.0-class
+#' print,SOS_2.0.0-method show,SOS_2.0.0-method sosBinding,SOS_2.0.0-method
+#' sosUrl,SOS_2.0.0-method toString,SOS_2.0.0-method
+#' @docType class
+#' @param url See the corresponding slot description.
+#' @param binding See the corresponding slot description.
+#' @param version See the corresponding slot description.
+#' @param parsers See the corresponding slot description.
+#' @param encoders See the corresponding slot description.
+#' @param dataFieldConverters See the corresponding slot description.
+#' @param timeFormat See the corresponding slot description.
+#' @param verboseOutput See the corresponding slot description.
+#' @param switchCoordinates See the corresponding slot description.
+#' @param useDCPs See the corresponding slot description.
+#' @param dcpFilter See the corresponding slot description.
+#' @param additionalKVPs See the corresponding slot description.
+#' @param ... Additional parameters that are passed on to the
+#' \code{\link{getObservation}} call that is done within this function.
+#' @param name Name of the test SOS class.
+#' @return The construction functions returns an object of class
+#' \code{\link{SOS-class}}.
+#' @section Objects from the Class: Objects can be created by calls to the
+#' construction function of the form \code{SOS(...)}.
+#' 
+#' Object from the class can be used in calls to function for metadata
+#' retrieval of sensors (\code{link{describeSensor-methods}}) and observation
+#' data queries (\code{link{getObservation-methods}} and
+#' \code{link{getObservationById-methods}})
+#' @author Daniel Nuest \email{daniel.nuest@@uni-muenster.de}
+#' @seealso See also creation function \code{\link{SOS}} and the package
+#' vignette for general description of use.
+#' @references Na, A., Priest, M. (Eds.), Sensor Observation Service, Open
+#' Geospatial Consortium Inc., OGC 06-009r6, Version: 1.0
+#' 
+#' The document is available for download at
+#' \url{https://www.opengeospatial.org/standards/sos}.
+#' @keywords classes
+#' @examples
+#' 
+#' showClass("SOS")
+#' showClass("SOS_2.0.0")
+#' 
+#' # create a SOS connection
+#' mySOS <- SOS(url = "http://sensorweb.demo.52north.org/sensorwebtestbed/service/kvp",
+#'              binding = "KVP")
+#' 
+#' # create the URL to a GET request for GetCapabilities
+#' sosCapabilitiesUrl(mySOS)
+#' 
+#' # access details of the SOS connection and it's metadata
+#' sosContents(mySOS)
+#' sosTime(mySOS)
+#' sosFeaturesOfInterest(mySOS)
+#' sosBinding(mySOS)
+#' 
+#' \dontrun{
+#' # create a SOS connetion with a specific connection method and time format
+#' mysos <- SOS(url = "http://mysos.org/sos",
+#'     binding = "KVP", timeFormat = "%Y-%m-%d")
+#' 
+#' # turn on verbose output for all methods and functions
+#' SOS(url = "http://mysos.org/sos", verboseOutput = TRUE)
+#' 
+#' # get the meaning of an exception code
+#' sosExceptionCodeMeaning(ex@exceptionCode)
+#' 
+#' # create a CRS object from a URN CRS string
+#' sosGetCRS("urn:ogc:def:crs:EPSG:4217")
+#' 
+#' # create a SOS for a specific binding at a specific endpoint
+#' SOS(url = "http://localhost:8080/52n-sos/sos/pox", binding = "POX",
+#' 		useDCPs = FALSE)
+#' 
+#' # create a SOS using only the DCPs from the capabilities that match a specific
+#' # pattern with the default binding
+#' SOS(url = "http://localhost:8080/52n-sos/sos/service",
+#' 		dcpFilter = list("POX" = "/pox"))
+#' }
+#' 
+#' 
+#' @export SOS
 SOS <- function(url, binding = SosDefaultBinding(),
                 version = sos100_version,
                 parsers = SosParsingFunctions(),
@@ -116,6 +280,59 @@ SosFilter_Capabilities <- function(spatial = list(NA_character_),
       scalar = scalar, id = id)
 }
 
+
+
+#' Class and Construction Function for "SosCapabilities"
+#' 
+#' The service metadata document of a Sensor Observation Service.
+#' 
+#' This document provides clients with service metadata about a specific
+#' service instance, including metadata about the tightly-coupled data served.
+#' 
+#' The portions of the GetCapabilities response document that are defined in
+#' the OWS Common specification are not modified for SOS. The sections of the
+#' response that are specific for the SOS are the Filter_Capabilities and the
+#' Contents section.
+#' 
+#' @name SosCapabilities
+#' @aliases SosCapabilities_1.0.0-class SosCapabilities SosCapabilities-class
+#' SosCapabilities_2.0.0-class
+#' @docType class
+#' @param version The version of the service.
+#' @param updateSequence Service metadata document version, value is
+#' "increased" whenever any change is made in complete service metadata
+#' document. This can be used to request a certain version of a metadata
+#' document. Parameter is found in both request and reponse, but may not be
+#' supported by a service.
+#' @param owsVersion The used OWS specification version.
+#' @param identification The identification section of a capabilities document,
+#' object of class \code{OwsServiceIdentification}.
+#' @param provider The provider section of a capabilities document, object of
+#' class \code{OwsServiceProvider}.
+#' @param operations A list of objects of class \code{OwsOperation} in a
+#' \code{OperationsMetadata} object. The provider section of a capabilities
+#' document.
+#' @param filterCapabilities An object of class \code{SosFilter_Capabilities}
+#' contaning the filter capabilities of a service.
+#' @param contents The provider section of a capabilities document, object of
+#' class \code{SosContents}.
+#' @section Objects from the Class: Objects can be created by calls to the
+#' construction function of the form \code{SosCapabilities(...)} including the
+#' parameter \code{"owsVersion"} for the respective version of the service
+#' metadata document.
+#' @author Daniel Nuest \email{daniel.nuest@@uni-muenster.de}
+#' @seealso \code{\linkS4class{SosFilter_Capabilities}},
+#' \code{\linkS4class{SosContents}}, \code{\linkS4class{OwsCapabilities}}
+#' @references Section 8.2.3 of the SOS specification: Na, A., Priest, M.
+#' (Eds.), Sensor Observation Service, Open Geospatial Consortium Inc., OGC
+#' 06-009r6, Version: 1.0
+#' @keywords classes
+#' @examples
+#' 
+#' showClass("SosCapabilities_1.0.0")
+#' showClass("SosCapabilities_2.0.0")
+#' 
+#' @export SosCapabilities
 SosCapabilities <- function(version,  updateSequence = NA, owsVersion = "1.1.0",
                             identification = NULL, provider = NULL, operations = NULL,
                             filterCapabilities = NULL, contents = NULL) {
@@ -171,6 +388,59 @@ SosContents <- function(observationOfferings) {
   new("SosContents", observationOfferings = observationOfferings)
 }
 
+
+
+#' Classes and Construction Functions for sos:eventTime elements.
+#' 
+#' Temporal query parameters for GetObservation requests.
+#' 
+#' Specifies the time period(s) for which observations are requested. This
+#' allows a client to request observations from a specific instant, multiple
+#' instances or periods of time in the past, present and future. The supported
+#' range is listed in the selected offering capabilities. The objects of these
+#' classes are used in the GetObservation (paramter in \link{GetObservation}).
+#' 
+#' A typical example in a POST request: \verb{ <eventTime> <ogc:TM_During>
+#' <ogc:PropertyName>om:samplingTime</ogc:PropertyName> <gml:TimePeriod>
+#' <gml:beginPosition>2006-11-05T17:18:58.000-06:00</gml:beginPosition>
+#' <gml:endPosition>2006-11-05T21:18:59.000-06:00</gml:endPosition>
+#' </gml:TimePeriod> </ogc:TM_During> </eventTime> }
+#' 
+#' In GET binding (\code{\link{SosBindings}}) the eventTime is simply omitted
+#' for getting the latest observation.
+#' 
+#' It is recommended to use the creation functions as shown in the examples.
+#' 
+#' @name SosEventTime
+#' @aliases SosEventTime-class show,SosEventTime-method
+#' print,SosEventTime-method toString,SosEventTime-method SosEventTime
+#' @docType class
+#' @param temporalOps An object of class \link{OgcBinaryTemporalOp-class} to be
+#' wrapped by the sos:eventTime element.
+#' @section Objects from the Classes: Objects can be created by calls to the
+#' construction functions of the form \code{SosEventTime(...)}.
+#' @author Daniel Nuest \email{daniel.nuest@@uni-muenster.de}
+#' @seealso See also \code{\link{SosGetObservation-class}},
+#' \code{\link{sosCreateEventTimeList-methods}}.
+#' @references See SOS specification, Table 4: \dQuote{Parameters of
+#' GetObservation Request}.
+#' @keywords classes
+#' @examples
+#' 
+#' showClass("SosEventTime")
+#' 
+#' # create SosEventTime for all times after the given time stamp
+#' timePos <- GmlTimePosition(as.POSIXct("2010-01-01 12:00"))
+#' tOps <- TM_After(time = GmlTimeInstant(timePosition = timePos))
+#' time1 <- SosEventTime(tOps)
+#' 
+#' # encode it as XML
+#' encodeXML(time1, sos = SOS_Test())
+#' 
+#' # encode it as KVP
+#' encodeKVP(time1, sos = SOS_Test())
+#' 
+#' @export SosEventTime
 SosEventTime <- function(temporalOps) {
   new("SosEventTime", temporalOps = temporalOps)
 }

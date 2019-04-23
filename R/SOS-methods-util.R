@@ -43,6 +43,54 @@ sosConvertDouble <- function(x, sos) {
   return(as.double(x = x))
 }
 
+
+
+#' SOS Conversion functions for Observation Results
+#' 
+#' These functions are called by the parsers of om:Observation and
+#' om:Measurement documents to convert the actual values to the correct
+#' classes.
+#' 
+#' The methods are automatically called from the given SOS's list of conversion
+#' functions. This is either default or can be set manually on creation.
+#' 
+#' If you want to provide you own conversion functions, follow the example
+#' below. Always include the common parameters \code{x} and \code{sos}.
+#' 
+#' There are functions to access the converters of a SOS
+#' (\code{\link{sosDataFieldConverters-methods}}) and to combine default and
+#' your own converters (\code{\link{SosDataFieldConvertingFunctions}}).
+#' 
+#' @aliases sosConvertString sosConvertDouble sosConvertTime sosConvertLogical
+#' @param x The object to be converted.
+#' @param sos An object of class \code{SOS}, whose settings, like formating
+#' information, can be utilitzed.
+#' @return An object of the respective class converted from the parameter
+#' \code{x}.
+#' @author Daniel Nuest \email{daniel.nuest@@uni-muenster.de}
+#' @seealso \code{\link{sosDataFieldConverters-methods}},
+#' \code{\link{SosDataFieldConvertingFunctions}}
+#' @keywords utilities
+#' @examples
+#' 
+#' 
+#' \dontrun{
+#' sos <- SOS_Test()
+#' one <- sosConvertDouble("1", sos)
+#' class(one)
+#' 
+#' # add conversion rules, also possible to override default ones
+#' myConverters <- SosDataFieldConvertingFunctions(
+#' 	"C" = sosConvertDouble,
+#' 	"S/m" = sosConvertDouble)
+#' sos <- SOS(url = SosExampleServices()[[2]], dataFieldConverters = myConverters)
+#' 
+#' # show converters
+#' sosDataFieldConverters(sos)
+#' }
+#' 
+#' 
+#' @export sosConvertString
 sosConvertString <- function(x, sos) {
   return(as.character(x = x))
 }
